@@ -42,4 +42,31 @@ public class UserServiceImpl implements UserService {
         jsonResult.setData(user);
         return jsonResult;
     }
+
+    @Override
+    public JsonResult addUser(String username, String password, String nick) {
+        JsonResult jsonResult = new JsonResult();
+        //判断用户是否被占用
+        User user = userDao.findByName(username);
+        if (user != null){
+            jsonResult.setStatus(1);
+            jsonResult.setMsg("用户名被占用");
+            return jsonResult;
+        }
+        try {
+            User user1 = new User();
+            //执行插入操作
+            user1.setCn_user_name(username);
+            user1.setCn_user_nick(nick);
+            user1.setCn_user_password(NoteUtil.MD5(password));
+            user1.setCn_user_id(NoteUtil.getUuid());
+            userDao.save(user1);
+            jsonResult.setStatus(0);
+            jsonResult.setMsg("注册成功");
+            return jsonResult;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -38,8 +38,6 @@ public class NoteUtil {
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
-        NoteUtil noteUtil = new NoteUtil();
-        String s = noteUtil.MD5("123");
-        System.out.println(s);
+        System.out.println(MD5("123456"));
     }
 }

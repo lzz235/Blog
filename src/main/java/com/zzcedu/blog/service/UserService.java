@@ -16,4 +16,6 @@ public interface UserService {
      * @return 响应实体类
      */
     JsonResult checkLogin(String username,String password) throws NoSuchAlgorithmException;
+
+    JsonResult addUser(String username, String password, String nick);
 }

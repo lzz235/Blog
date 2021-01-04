@@ -20,4 +20,6 @@ public interface NoteService {
      * @return 响应实体类
      */
     JsonResult loadNote(String noteId);
+
+    JsonResult updateNote(String title, String body, String noteId);
 }

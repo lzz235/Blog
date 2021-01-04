@@ -35,4 +35,19 @@ public class NoteServiceImpl implements NoteService {
         jsonResult.setData(note);
         return jsonResult;
     }
+
+    @Override
+    public JsonResult updateNote(String title, String body, String noteId) {
+        JsonResult jsonResult = new JsonResult();
+        Note note = Note.builder().cn_note_id(noteId).cn_note_title(title).cn_note_body(body).cn_note_last_modify_time(System.currentTimeMillis()).build();
+        int i = noteDao.update(note);
+        if (i > 0){
+            jsonResult.setStatus(0);
+            jsonResult.setMsg("保存笔记成功");
+            return jsonResult;
+        }
+        jsonResult.setStatus(1);
+        jsonResult.setMsg("保存笔记失败");
+        return jsonResult;
+    }
 }

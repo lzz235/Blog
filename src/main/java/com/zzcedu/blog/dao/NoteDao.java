@@ -2,6 +2,7 @@ package com.zzcedu.blog.dao;
 
 import com.zzcedu.blog.entity.Note;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,4 +27,12 @@ public interface NoteDao {
      */
     @Select("select * from cn_note where cn_note_id = #{noteId}")
     Note findById(String noteId);
+
+    /**
+     * 修改笔记本详情
+     * @param note
+     * @return
+     */
+    @Update("update cn_note set cn_note_title = #{cn_note_title},cn_note_body=#{cn_note_body},cn_note_last_modify_time=#{cn_note_last_modify_time} where cn_note_id = #{cn_note_id}")
+    int update(Note note);
 }

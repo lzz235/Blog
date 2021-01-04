@@ -88,3 +88,40 @@ function loadBookNote() {
         }
     });
 }
+/**
+ * 保存笔记
+ */
+function updateNote() {
+    //1.获取请求参数
+    var title = $("#input_note_title").val().trim();
+    var body = um.getContent();
+    var $li = $("#note_ul a.checked").parent();
+    var noteId = $li.data("noteId");
+    //2.参数格式效验
+    if ($li.length == 0){
+        alert("请选择要保存的笔记");
+    }else if (title == ""){
+        $("#note_title_span").html("<font color='red'>标题不能为空</font>");
+    }else {
+        //3.发送Ajax
+        $.ajax({
+            url:base_path+"/note/update.do",
+            type:"post",
+            data:{"title":title,"body":body,"noteId":noteId},
+            dataType:"json",
+            success:function (result) {
+                //更新笔记列表中得li元素
+                var sli = '';
+                sli += '<i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i>'+title+'<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down"><i class="fa fa-chevron-down"></i></button>';
+                //将选中里元素的a内容替换成sli
+                $li.find("a").html(sli);
+                //提示保存信息
+                alert(result.msg);
+            },
+            error:function () {
+                alert("更新笔记异常");
+            }
+        });
+    }
+
+}

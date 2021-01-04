@@ -90,3 +90,74 @@ function addBook() {
         });
     }
 }
+function rename() {
+    //1.获取请求参数
+    var rename = $("#input_notebook_rename").val().trim();
+    var $li = $("#book_ul a.checked").parent();
+    var bookId = $li.data("bookId");
+    ok = true;
+    //2.参数格式效验
+    if (rename == ""){
+        ok = false;
+        $("#notebook_rename_span").html("笔记本名称为空");
+    }
+    if (bookId == null){
+        ok = false;
+        $("#notebook_rename_span").html("没有查询到该笔记本");notebook_del_span
+    }
+    if (ok){
+        //3.发送ajax
+        $.ajax({
+            url:base_path+"/book/rename.do",
+            type:"post",
+            data:{"rename":rename,"bookId":bookId},
+            dataType:"json",
+            success:function (result) {
+                //关闭对话框
+                closeAlertWindow();
+                if (result.status == 0){
+                    var li = '';
+                    li += '<i class="fa fa-book" title="online" rel="tooltip-bottom">';
+                    li += '</i> '+rename+'</a></li>';
+                    //将选中里元素的a内容替换成li
+                    $li.find("a").html(li);
+                }
+                //提示信息
+                alert(result.msg);
+            },
+            error:function () {
+                alert("重命名笔记本异常");
+            }
+        });
+    }
+}
+function delBook() {
+    //1.获取请求参数
+    var $li = $("#book_ul a.checked").parent();
+    var bookId =$li.data("bookId");
+    //2.参数格式效验
+    ok = true;
+    if (bookId == ""){
+        ok = false;
+        $("#notebook_del_span").html("没有查询到该笔记本");
+    }
+    if (ok){
+        //3.发送Ajax
+        $.ajax({
+            url:base_path+"/book/delete.do",
+            type:"post",
+            data:{"bookId":bookId},
+            dataType:"json",
+            success:function (result) {
+                closeAlertWindow();
+                if (result.status == 0){
+                    $li.remove();
+                }
+                alert(result.msg);
+            },
+            error:function () {
+                alert("删除笔记本异常");
+            }
+        });
+    }
+}

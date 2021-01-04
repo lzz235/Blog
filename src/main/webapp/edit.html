@@ -326,6 +326,22 @@
 				 * 创建笔记本的确定按钮的绑定
 				 */
 				$("#can").on("click","#sure_addbook",addBook);
+				/**
+				 * 弹出重命名笔记本的对话框
+				 */
+				$("#book_ul").on("dblclick","li",alertRenameBookWindow);
+				/**
+				 * 重命名笔记本的确定按钮绑定
+				 */
+				$("#can").on("click","#sure_rename",rename);
+				/**
+				 * 弹出删除笔记本的对话框
+				 */
+				$("#rollback_button").click(alertDeleteNotesWindow);
+				/**
+				 * 删除笔记本的删除按钮绑定
+				 */
+				$("#can").on("click","#sure_notebook_del",delBook);
 			})
 		</script>
 		<!-- Bootstrap框架JS -->

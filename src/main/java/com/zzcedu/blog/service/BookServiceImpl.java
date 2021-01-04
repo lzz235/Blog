@@ -47,4 +47,34 @@ public class BookServiceImpl implements BookService {
         jsonResult.setData(null);
         return jsonResult;
     }
+
+    @Override
+    public JsonResult rename(String rename, String bookId) {
+        JsonResult jsonResult = new JsonResult();
+        Book book = Book.builder().cn_notebook_name(rename).cn_notebook_id(bookId).build();
+        int i = bookDao.rename(book);
+        if (i > 0){
+            jsonResult.setStatus(0);
+            jsonResult.setMsg("重命名成功");
+            jsonResult.setData(book);
+            return jsonResult;
+        }
+        jsonResult.setStatus(1);
+        jsonResult.setMsg("重命名失败");
+        return jsonResult;
+    }
+
+    @Override
+    public JsonResult delete(String bookId) {
+        JsonResult jsonResult = new JsonResult();
+        int i = bookDao.delete(bookId);
+        if (i > 0){
+            jsonResult.setStatus(0);
+            jsonResult.setMsg("删除笔记本成功");
+            return jsonResult;
+        }
+        jsonResult.setStatus(1);
+        jsonResult.setMsg("删除笔记本失败");
+        return jsonResult;
+    }
 }

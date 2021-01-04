@@ -15,4 +15,8 @@ public interface BookService {
     JsonResult loadUserBooks(String userId);
 
     JsonResult addBook(String bookName, String userId);
+
+    JsonResult rename(String rename, String bookId);
+
+    JsonResult delete(String bookId);
 }

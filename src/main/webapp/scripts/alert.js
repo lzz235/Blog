@@ -26,6 +26,12 @@ function alertDeleteNoteWindow(){
 		"alert/alert_delete_note.html");
 	$(".opacity_bg").show();
 };
+//弹出删除笔记本确认对话框
+function alertDeleteNotesWindow(){
+	$("#can").load(
+		"alert/alert_delete_notebook.html");
+	$(".opacity_bg").show();
+};
 //弹出创建笔记对话框
 function alertAddNoteWindow(){
 	//如果没有选中的笔记本,提示

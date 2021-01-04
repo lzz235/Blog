@@ -298,7 +298,18 @@
 		<script>
 			//页面加载事件
 			$(function () {
-				loadUserBook();
+				/**
+				 * 加载用户笔记
+				 */
+				loadUserBooks();
+				/**
+				 * 根据笔记本加载笔记
+				 */
+				$("#book_ul").on("click","li",loadBookNotes);
+				/**
+				 * 根据笔记id加载笔记详情
+				 */
+				$("#note_ul").on("click","li",loadBookNote);
 			})
 		</script>
 	</body>		

@@ -1,7 +1,7 @@
 /**
  * 根据用户id查询笔记本信息
  */
-function loadUserBook() {
+function loadUserBooks() {
     //1.获取请求参数
     //获取用户Id
     var uid = getCookie("uid");
@@ -20,7 +20,7 @@ function loadUserBook() {
                 var books = result.data;
                 for (var i = 0; i < books.length; i++) {
                     var bookName = books[i].cn_notebook_name;
-                    var bookId = books[i].cn_user_id;
+                    var bookId = books[i].cn_notebook_id;
                     createBookLi(bookId,bookName);
                 }
             }

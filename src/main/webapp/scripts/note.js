@@ -125,3 +125,101 @@ function updateNote() {
     }
 
 }
+
+/**
+ * 笔记的创建
+ */
+function addNote() {
+    //1.获取请求参数
+    var userId = getCookie("uid");
+    var $li = $("#book_ul a.checked").parent();
+    var bookId = $li.data("bookId");
+    var noteTitle = $("#input_note").val().trim();
+    $("#note_span").html("");
+    //2.参数格式效验
+    var ok = true;
+    if(userId == ""){
+        ok = false;
+        window.location.href = "log_in.html";
+    }
+    if (noteTitle == ""){
+        ok = false;
+        $("#note_span").html("笔记名不能为空");
+    }
+    if (ok){
+        //3.发送Ajax
+        $.ajax({
+            url:base_path+"/note/add.do",
+            type:"post",
+            data:{"userId":userId,"bookId":bookId,"noteTitle":noteTitle},
+            dataType:"json",
+            success:function (result) {
+                //1.关闭对话框
+                closeAlertWindow();
+                if (result.status == 0){
+                    //2.添加新的note Li
+                    var noteId = result.data.cn_note_id;
+                    var noteTitle = result.data.cn_note_title;
+                    createNoteLi(noteTitle,noteId);
+                }
+                //3.弹出提示信息
+                alert(result.msg);
+            },
+            error:function () {
+                alert("添加笔记异常");
+            }
+        });
+    }
+}
+
+/**
+ * 笔记菜单的显示
+ */
+function showMenu() {
+    //下拉之前先隐藏
+    hideMenu();
+    //this:指的是下拉菜单按钮
+    var $menu = $(this).parent().next();
+    //下拉0.5秒
+    $menu.slideDown(500);
+    //清除选中
+    $("#note_ul a").removeClass("checked");
+    //选中
+    $(this).parent().addClass("checked");
+    //JQuery解决冒泡事件
+    return false;
+}
+/**
+ * 隐藏笔记菜单
+ */
+function hideMenu() {
+    $("#note_ul div").hide();
+}
+/**
+ * 删除笔记操作
+ */
+function deleteNote() {
+    //1.获取请求参数
+    var $li = $("#note_ul a.checked").parent();
+    var noteId = $li.data("noteId");
+    //2.参数格式效验
+    //3.发送Ajax
+    $.ajax({
+        url:base_path+"/note/delete.do",
+        type:"post",
+        data:{"noteId":noteId},
+        dataType:"json",
+        success:function (result) {
+            //1.关闭删除对话框
+            if (result.status == 0){
+                //2.
+                $li.remove();
+            }
+            //3.提示信息
+            alert(result.msg);
+        },
+        error:function () {
+            alert("删除笔记异常");
+        }
+    });
+}

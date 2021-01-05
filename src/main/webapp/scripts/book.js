@@ -57,7 +57,7 @@ function addBook() {
     //用户ID
     var userId = getCookie("uid");
     //2.参数格式效验
-    ok = true;
+    var ok = true;
     if (bookName == ""){
         ok = false;
         $("#notebook_span").html("笔记本名称为空");
@@ -90,12 +90,15 @@ function addBook() {
         });
     }
 }
+/**
+ * 笔记本的重命名
+ */
 function rename() {
     //1.获取请求参数
     var rename = $("#input_notebook_rename").val().trim();
     var $li = $("#book_ul a.checked").parent();
     var bookId = $li.data("bookId");
-    ok = true;
+    var ok = true;
     //2.参数格式效验
     if (rename == ""){
         ok = false;
@@ -131,12 +134,15 @@ function rename() {
         });
     }
 }
+/**
+ * 笔记本的删除
+ */
 function delBook() {
     //1.获取请求参数
     var $li = $("#book_ul a.checked").parent();
     var bookId =$li.data("bookId");
     //2.参数格式效验
-    ok = true;
+    var ok = true;
     if (bookId == ""){
         ok = false;
         $("#notebook_del_span").html("没有查询到该笔记本");
@@ -161,3 +167,34 @@ function delBook() {
         });
     }
 }
+/**
+ * 笔记本的收藏
+ */
+function likeBook() {
+    //1.获取请求参数
+    var $li = $("#book_ul a.checked").parent();
+    var bookId = $li.data("bookId");
+    //2.参数格式效验
+    var ok = true;
+    if (bookId == ""){
+        ok = false;
+        $("#notebook_like_span").html("笔记本不存在");
+    }
+    if (ok){
+        //3.发送Ajax
+        $.ajax({
+            url:base_path+"/book/like.do",
+            type:"post",
+            data:{"bookId":bookId},
+            dataType:"json",
+            success:function (result) {
+                closeAlertWindow();
+                alert(result.msg);
+            },
+            error:function () {
+                alert("收藏异常");
+            }
+        });
+    }
+}
+

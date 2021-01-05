@@ -19,4 +19,6 @@ public interface BookService {
     JsonResult rename(String rename, String bookId);
 
     JsonResult delete(String bookId);
+
+    JsonResult like(String bookId);
 }

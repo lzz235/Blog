@@ -77,4 +77,18 @@ public class BookServiceImpl implements BookService {
         jsonResult.setMsg("删除笔记本失败");
         return jsonResult;
     }
+
+    @Override
+    public JsonResult like(String bookId) {
+        JsonResult jsonResult = new JsonResult();
+        int i = bookDao.like(bookId);
+        if (i >0){
+            jsonResult.setStatus(0);
+            jsonResult.setMsg("收藏成功");
+            return jsonResult;
+        }
+        jsonResult.setStatus(1);
+        jsonResult.setMsg("收藏失败");
+        return jsonResult;
+    }
 }

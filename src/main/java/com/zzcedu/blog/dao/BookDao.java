@@ -44,4 +44,12 @@ public interface BookDao {
      */
     @Delete("delete from cn_notebook where cn_notebook_id = #{bookId}")
     int delete(String bookId);
+
+    /**
+     * 收藏笔记本
+     * @param bookId
+     * @return
+     */
+    @Update("update cn_notebook set cn_notebook_type_id=1 where cn_notebook_id = #{bookId}")
+    int like(String bookId);
 }

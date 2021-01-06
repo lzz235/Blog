@@ -176,9 +176,10 @@ function likeBook() {
     var bookId = $li.data("bookId");
     //2.参数格式效验
     var ok = true;
-    if (bookId == ""){
+    if (bookId == null){
         ok = false;
-        $("#notebook_like_span").html("笔记本不存在");
+        closeAlertWindow();
+        alert("笔记本不存在");
     }
     if (ok){
         //3.发送Ajax

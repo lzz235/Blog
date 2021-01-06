@@ -374,6 +374,23 @@
 				 * 删除弹窗确定按钮的绑定
 				 */
 				$("#can").on("click","#sure_deletenote",deleteNote);
+				/**
+				 * 退出登录
+				 */
+				$("#logout").click(logout);
+				/**
+				 * 移动笔记弹窗的弹出
+				 */
+				$("#note_ul").on("click",".btn_move",alertMoveNoteWindow);
+				/**
+				 * 移动弹窗确定按钮的绑定
+				 */
+				$("#can").on("click","#sure_movenote",MoveNote);
+				/**
+				 * 分享笔记按钮的绑定
+				 */
+				$("#note_ul").on("click",".btn_share",ShareNote);
+
 			})
 		</script>
 		<!-- Bootstrap框架JS -->

@@ -14,8 +14,11 @@ public interface UserService {
      * @param username
      * @param password
      * @return 响应实体类
+     * @throws NoSuchAlgorithmException
      */
     JsonResult checkLogin(String username,String password) throws NoSuchAlgorithmException;
 
     JsonResult addUser(String username, String password, String nick);
+
+    JsonResult rePwd(String lastPwd, String newPwd, String uname) throws NoSuchAlgorithmException;
 }

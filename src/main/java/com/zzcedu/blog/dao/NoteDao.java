@@ -2,10 +2,8 @@ package com.zzcedu.blog.dao;
 
 import com.zzcedu.blog.entity.Note;
 import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -107,4 +105,6 @@ public interface NoteDao {
             "        </set>\n" +
             "        where cn_note_id = #{cn_note_id} </script>")
     int dynamicUpdate(Note note);
+
+
 }

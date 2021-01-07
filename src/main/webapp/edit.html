@@ -290,12 +290,14 @@
 		</script>
 		
         <script type="text/javascript" src="scripts/jquery.min.js"></script>
-		<script type="text/javascript"src="scripts/basevalue.js"></script>
+		<script type="text/javascript"src="scripts/baseValue.js"></script>
 		<script type="text/javascript" src="scripts/cookie_util.js"></script>
 		<script type="text/javascript" src="scripts/book.js"></script>
 		<script type="text/javascript" src="scripts/note.js"></script>
 		<script type="text/javascript" src="scripts/alert.js"></script>
 		<script>
+			var keyword;
+			var page;
 			//页面加载事件
 			$(function () {
 				/**
@@ -390,6 +392,33 @@
 				 * 分享笔记按钮的绑定
 				 */
 				$("#note_ul").on("click",".btn_share",ShareNote);
+				/**
+				 * 搜索分享笔记
+				 */
+				$("#search_note").keydown(function (event) {
+					//获取事件源对应的key编号
+					var code = event.keyCode;
+					//enter键对应的key编号对应的是13
+					if (code == 13){
+						//1.获取请求参数
+						keyword = $("#search_note").val().trim();
+						page = 1;
+						//按下enter键清空
+						$("#pc_part_6 ul").empty();
+						searchSharePage(keyword,page);
+					}
+				})
+				/**
+				 * 绑定更多按钮
+				 */
+				$("#more_note").click(function () {
+					page = page + 1;
+					searchSharePage(keyword,page);
+				})
+				/**
+				 * 根据分享笔记id加载笔记详情
+				 */
+				$("#pc_part_6 ul").on("click","li",loadSearchShare);
 
 			})
 		</script>

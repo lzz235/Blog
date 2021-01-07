@@ -30,4 +30,8 @@ public interface NoteService {
     JsonResult moveNote(String noteId, String bookId);
 
     JsonResult shareNote(String noteId);
+
+    JsonResult searchShareNote(String keyword, Integer page);
+
+    JsonResult loadShare(String shareId);
 }
